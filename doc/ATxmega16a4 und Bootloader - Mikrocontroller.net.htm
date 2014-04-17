@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="de"><head>
+  <title>
+      ATxmega16a4 und Bootloader - Mikrocontroller.net
+  </title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+  
+
+	<link href="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/screen-9a124f4473dc33d7c3f26f56038e8d17.css" media="all" rel="stylesheet">
+	<link href="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/print-402e11a5179e012ecfb498d1e4def19e.css" media="print" rel="stylesheet">
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.mikrocontroller.net/favicon.ico">
+  <link rel="canonical" href="http://www.mikrocontroller.net/topic/158211">
+
+	<meta content="authenticity_token" name="csrf-param">
+<meta content="mHehugNSZl38TaV3I9lhd03C+gabpjJ67vCmV7zbkRs=" name="csrf-token">
+
+
+<style type="text/css">
+
+
+.flattr-link {display: none;}
+</style>
+
+<script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/ga.js" async="" type="text/javascript"></script><script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/gpt.js" type="text/javascript" async=""></script><script type="text/javascript">
+  var user = eval("({\"name\":null,\"role\":null,\"posts_per_page\":null})");
+
+  var topic_read_times = {};
+  var post_votes = {};
+	var post_scores = {};
+</script>
+
+
+
+  <script type="text/javascript">
+$( document ).ready(function() {
+  setTimeout(function() {
+    if ($('#sdfj391').is(':visible') && !$('#adliste').is(':visible')) {
+      if (parseInt(localStorage.getItem('abc') || 0) > 5 && parseInt(localStorage.getItem('abc') || 0) <= 14) {
+        $('#content').before('<div class="box">Lieber AdBlock-Nutzer, wir mögen störende, blinkende Flash-Anzeigen genauso wenig wie du. Deshalb zeigt Mikrocontroller.net ausschließlich nicht animierte Text- und Bildanzeigen an. Vielleicht möchtest du AdBlock für diese Seite deaktivieren? (Diese Meldung verschwindet automatisch nach ein paar Seitenaufrufen.)</div>');
+      }
+      if (typeof localStorage != 'undefined') {
+        localStorage.setItem('abc', 1 + parseInt(localStorage.getItem('abc') || 0));
+      }
+    }
+  }, 100);
+});
+  </script>
+
+  <link rel="alternate" type="application/atom+xml" title="Mikrocontroller.net Newsfeed" href="http://www.mikrocontroller.net/newsfeed">
+
+  <!-- Forum Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="Neue Beiträge in allen Foren" href="http://www.mikrocontroller.net/feed/global">
+   <link rel="alternate" type="application/atom+xml" title="Neue Beiträge im Forum &quot;GCC&quot;" href="http://www.mikrocontroller.net/feed/forum/2"> 
+   <link rel="alternate" type="application/atom+xml" title="Neue Beiträge im Thread &quot;ATxmega16a4 und Bootloader&quot;" href="http://www.mikrocontroller.net/feed/topic/158211"> 
+  
+  <!-- / Forum Feeds -->
+
+    <meta name="robots" content="NOODP">
+
+  <link rel="search" type="application/opensearchdescription+xml" title="Mikrocontroller.net" href="http://www.mikrocontroller.net/searchplugin.xml">
+
+<!--[if IE 7]><style>
+.gainlayout { zoom: 1;}
+</style><![endif]-->
+
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> -->
+<script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/jquery.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+
+<script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/application-c63133bbfe750f1b6e2c225acd3571ab.js"></script>
+
+<!--
+	<script src="//code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+		$('#attention').animate({backgroundColor: "yellow"}, 200,
+		function() {
+		    // Animation complete.
+				$('#attention').animate({backgroundColor: "#F0F0F0"}, 1000);
+		}
+	);
+	});
+		</script>
+-->
+
+
+
+
+<!-- PUT THIS TAG IN THE head SECTION -->
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+<!-- END OF TAG FOR head SECTION -->
+
+<script type="text/javascript">googletag.cmd.push(function() {//googletag.pubads().enableSingleRequest();
+googletag.pubads().setTargeting('site_id', '1');
+googletag.pubads().setTargeting('forum_id', '2');
+googletag.pubads().setTargeting('section', 'forum-2');
+googletag.pubads().setTargeting('pagetype', 'topic');
+googletag.pubads().setTargeting('ssl', '0');
+});</script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-80574-1']);
+  _gaq.push(['_setCustomVar', 1, "forum.id", "2", 1]);
+  _gaq.push(['_setCustomVar', 2, "user.class", "Guest", 2]);
+  if (typeof googletag.pubads == 'function') {
+    _gaq.push(['_setCustomVar', 3, "GAM", "Yes", 1]);
+  } else {
+    _gaq.push(['_setCustomVar', 3, "GAM", "No", 1]);
+  }
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--
+<script type="text/javascript">
+var _paq = _paq || [];
+(function(){ var u="//www.mikrocontroller.net/piwik/";
+_paq.push(['setSiteId', 1]);
+_paq.push(['setTrackerUrl', u+'piwik.php']);
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; g.defer=true; g.async=true; g.src=u+'piwik.js';
+s.parentNode.insertBefore(g,s); })();
+ </script>
+-->
+<meta name="google-translate-customization" content="5ced0b84f202ea5b-ae0c3756d2b00e02-g6a9f31b5bb528ccf-17">
+<script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/pubads_impl_37.js" type="text/javascript" async=""></script><script src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/osd.js" type="text/javascript"></script></head>
+
+<body>
+<div id="outer-container">
+    <div id="top"><h1><a href="http://www.mikrocontroller.net/">www.mikrocontroller.net</a></h1></div>
+
+
+  <table id="twocolumns">
+  <tbody><tr><td id="sidebar-left" class="sidebar">
+  
+    <!-- begin nav -->
+<div class="nav-container">
+  <ul class="nav-first">
+    <li><b><a href="http://www.mikrocontroller.net/">Home</a></b></li>
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/AVR">AVR</a></b>
+    </li>
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/ARM">ARM</a></b>
+    </li>
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/MSP430">MSP430</a></b>
+    </li>
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/Programmierbare_Logik">FPGA, CPLD &amp; Co.</a></b>
+    </li>
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/Digitale_Signalverarbeitung">DSP</a></b>
+    </li>
+
+    <li>
+      <b><a href="http://www.mikrocontroller.net/articles/Elektronik_Allgemein">Elektronik allgemein</a></b>
+    </li>
+
+    <li>
+      <b><a href="http://www.mikrocontroller.net/forum/all">Forum</a></b>
+      <ul>
+        <li><a href="http://www.mikrocontroller.net/forum/mikrocontroller-elektronik">µC &amp; Elektronik</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/analogtechnik">Analogtechnik</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/fpga-vhdl-cpld">FPGA, VHDL &amp; Co.</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/dsp">DSP</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/gcc">GCC</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/codesammlung">Projekte &amp; Code</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/markt">Markt</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/platinen">Platinen</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/mechanik">Mechanik &amp; Werkzeug</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/hf">HF, Funk &amp; Felder</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/hausbus">Haus &amp; Smart Home</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/pc-programmierung">PC-Programmierung</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/pc-hardware-software">PC Hard- &amp; Software</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/ausbildung-studium-beruf">Ausbildung &amp; Beruf</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/offtopic">Offtopic</a></li>
+        <li><a href="http://www.mikrocontroller.net/forum/website">Webseite</a></li>
+       </ul>
+    </li>
+<!--    <li><b><a href="/buecher/">Buchtipps</a></b></li>-->
+<!--    <li><b><a href="http://shop.mikrocontroller.net/">Shop</a></b></li>-->
+    <li><b><a href="http://www.mikrocontroller.net/articles/Linksammlung">Linksammlung</a></b></li>
+    <li><b><a href="http://www.mikrocontroller.net/articles/Hauptseite">Artikelübersicht</a></b></li>
+    <li><b><a href="http://www.mikrocontroller.net/articles/Spezial:Recentchanges">Letzte Änderungen</a></b></li>
+  </ul>
+</div>
+<!-- end nav -->
+
+
+<div id="adliste" class="adtxt adunit bannerad"></div>
+<div id="sdfj391"></div>
+
+<hr>
+<div id="first-adframe" class="adframe">
+  <!-- <div style="font-size: 0.65em;">- Anzeige -</div> -->
+  <!-- bannerstart -->
+  <div style="margin: auto; padding: 0; width: 120px;">
+  <script type="text/javascript">document.write(decodeURIComponent('%3Cdiv%20class=%22ad%22%20id=%22div-gpt-ad-dakzwvoy%22%3E%3C/div%3E'));googletag.cmd.push(function() {slot = googletag.defineSlot('/1009109/uc_sidebar_top_sky', [120, 600], 'div-gpt-ad-dakzwvoy');slot.addService(googletag.pubads());slot.set('adsense_channel_ids', '4674252417+7311337829,7920462969+1675723313');
+slot.set('adsense_border_color', '0066cc');
+slot.set('adsense_background_color', 'c3d9ff');
+slot.set('adsense_link_color', '0000ff');
+slot.set('adsense_url_color', '0000ff');
+slot.set('adsense_text_color', '000000');
+googletag.enableServices();googletag.display('div-gpt-ad-dakzwvoy');
+});</script><div class="ad" id="div-gpt-ad-dakzwvoy"><div style="border: 0pt none;" id="google_ads_iframe_/1009109/uc_sidebar_top_sky_0__container__"><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_sidebar_top_sky_0" id="google_ads_iframe_/1009109/uc_sidebar_top_sky_0" frameborder="0" height="600" scrolling="no" width="120"></iframe></div><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_sidebar_top_sky_0__hidden__" id="google_ads_iframe_/1009109/uc_sidebar_top_sky_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+  </div>
+  <!-- bannerend -->
+  </div>
+  <div style="padding-top: 10px;"></div>
+
+
+  </td>
+  <td id="main">
+
+<div id="container">
+    <!-- contentDetection start --> 
+    <!-- google_ad_section_start -->
+			<h1 id="pageName" style="float: left;"><small><a href="http://www.mikrocontroller.net/forum/2">Forum: GCC</a></small> ATxmega16a4 und Bootloader</h1>
+
+
+  <br style="clear: both;">
+  
+
+  <div id="nav-top"><div class="navbar">
+  <span class="left">
+    <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum">Forenliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum/gcc">Threadliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/topic/new?forum_id=2">Neuer Beitrag</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/search">Suchen</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/register">Anmelden</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/list">Benutzerliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/attachment/gallery">Bildergalerie</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/help">Hilfe</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/login">Login</a></span>
+  </span>
+  
+
+  <br class="clear">
+</div>
+</div>
+    <div id="attention" class="box">
+      
+      <img src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/gb.png" alt=""> Announcement: there is an <b>English version</b> of this forum on <a href="http://embdev.net/?from=language_link">EmbDev.net</a>. Posts you create there will be displayed on Mikrocontroller.net <i>and</i> EmbDev.net.
+    </div>
+  <div id="content">
+    <div class="forum">
+  <div class="topic" id="topic" data-id="158211">
+
+    
+    <script type="text/javascript">
+    have_newpost_anchor = false;
+    topic_last_read_at = getLastReadAt(158211);
+    </script>
+      <script type="text/javascript">
+      if (!have_newpost_anchor && (!topic_last_read_at || topic_last_read_at < 1259342580000)) {
+        document.write('<a name="new" id="new"></a>');
+        have_newpost_anchor = true;
+      }
+      </script><a name="new" id="new"></a>
+
+      
+<div id="1498882" class="post box gainlayout  post-userid-20272 post-id-1498882 new-post" data-attributionline="Falko J. schrieb im Beitrag #1498882:" data-created-at="1259342580000" data-guest-name="" data-updated-at="1259342591000" data-user-id="20272">
+
+  <div class="subject">
+    <a name="1498882" href="#1498882">ATxmega16a4 und Bootloader</a>
+  </div>
+
+  <div class="info">
+	<table><tbody><tr><td>
+	</td>
+	<td>
+    <div class="author">
+      Autor:
+      <span class="name">
+        Falko J.
+        (<a href="http://www.mikrocontroller.net/user/show/spacefrog">spacefrog</a>)
+        
+      
+      
+
+
+      </span>
+    </div>
+
+    <div class="date">
+      <span class="created">Datum: <time class="datetime" datetime="2009-11-27T18:23:00+01:00">27.11.2009 18:23</time></span>
+    </div>
+</td></tr></tbody></table>
+
+      Angehängte Dateien:<br>
+
+      <ul class="attachments-files">
+      <li>
+        <a href="http://www.mikrocontroller.net/attachment/63765/AtXmega-Bootloader_16A4.zip">AtXmega-Bootloader_16A4.zip</a> (30 KB, 34 Downloads)
+      </li>
+      </ul>
+
+  
+  </div>
+
+  <hr style="clear: both;">
+
+  <div class="post-vote-links noprint" style="float:right; font-size: 10px;">
+  Bewertung
+  <table><tbody><tr>
+  <td><span class="score">0</span></td>
+  <td>
+  <a class="up" data-remote="true" href="http://www.mikrocontroller.net/topic/vote_post?id=1498882&amp;rating=1" rel="nofollow"><span style="font-size: 150%;font-weight: bold;font-family:Arial;">▲</span> lesenswert</a>
+  <br>
+  <a class="down" data-remote="true" href="http://www.mikrocontroller.net/topic/vote_post?id=1498882&amp;rating=-1" rel="nofollow"><span style="font-size: 150%;font-weight: bold;font-family:Arial;">▼</span> nicht lesenswert</a>
+  </td>
+  </tr></tbody></table>
+  </div>
+
+  <div class="text gainlayout">
+      <pre>Hallo zusammen,
+ich versuche gerade auf einem Xmega16a4 den Bootloader zum laufen zu 
+bekommen.
+Dazu habe ich den Source verwendet der auf der <a title="Link zu Wiki-Artikel" class="wiki" href="http://www.mikrocontroller.net/articles/AVR">AVR</a>-FREAKS Seite zu 
+finden war:
+
+<a class="postedlink" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=79592&amp;highlight=xmega+bootloader" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;f...</a>
+
+Dies ist eine auf WIN-GCC umgebogene Variante der Aplication Note 
+AVR1605:
+
+<a class="postedlink" href="http://www.atmel.com/dyn/resources/prod_documents/doc8242.pdf" rel="nofollow">http://www.atmel.com/dyn/resources/prod_documents/...</a>
+
+Habe bis jetzt folgende Anpassungen gemacht
+- UART angepasst
+- Taster Port/Pin angepasst
+- Flash Adresse .text in den memory Settings von 0x10000 auf 0x2000
+  geändert
+- Die Signature Bytes angepasst
+
+Danach hat das beiliegende Programm (baudrate auf 19200 geändert) auch 
+eine Kommunikation aufgebaut, bricht dann aber später mit folgender 
+Meldung ab:
+
+Serial port timeout set to 10 sec.
+Scanning COM ports for supported programmer...
+COM1...
+COM2...
+Found AVRBOOT on COM2!
+Entering programming mode...
+Parsing XML file for device parameters...
+Parsing '.\ATxmega16A4.xml'...
+#####
+Saving cached XML parameters...
+Signature matches device!
+Erasing chip contents...
+Reading HEX input file for flash operations...
+#################################################
+Programming Flash contents...
+
+An error occurred:
+  [Programmer pagesize is not set!]
+
+---
+Ändern der Pagesize in der defines.h brachte keine Erfolg
+Hat da jemand noch ne Idee?
+
+Projekt ist im Anhang
+
+LG
+Falko</pre>
+  </div>
+
+  <br style="clear: both;">
+
+
+
+  <div class="foot gainlayout unselectable">
+    <span class="menuitem postmenuitem-report"><a href="http://www.mikrocontroller.net/topic/report_post/1498882" data-remote="true" class="nav" data-confirm="Möchten Sie den Beitrag zur Überprüfung melden?" rel="nofollow">Beitrag melden</a></span> <span class="menuitem postmenuitem-edit"><a href="http://www.mikrocontroller.net/topic/158211?edit=1498882#postform" class="nav" rel="nofollow">Bearbeiten</a></span> <span class="menuitem postmenuitem-move"><a class="nav" href="http://www.mikrocontroller.net/topic/move/158211" rel="nofollow">Thread verschieben</a></span> <span class="menuitem postmenuitem-lock"><a class="nav" href="http://www.mikrocontroller.net/topic/lock/158211?token=mHehugNSZl38TaV3I9lhd03C%2BgabpjJ67vCmV7zbkRs%3D" rel="nofollow">Thread sperren</a></span> <span class="menuitem postmenuitem-delete"><a class="nav" data-confirm="Sind Sie sicher dass Sie diesen Thread löschen möchten?" href="http://www.mikrocontroller.net/topic/delete_post/1498882?token=mHehugNSZl38TaV3I9lhd03C%2BgabpjJ67vCmV7zbkRs%3D" rel="nofollow">Thread löschen</a></span> <span class="menuitem postmenuitem-merge"><a class="nav" href="http://www.mikrocontroller.net/topic/merge?source=158211&amp;token=mHehugNSZl38TaV3I9lhd03C%2BgabpjJ67vCmV7zbkRs%3D" rel="nofollow">Thread mit anderem zusammenführen</a></span> <span class="menuitem"><a href="http://www.mikrocontroller.net/topic/158211?reply_to=1498882#postform" onclick="return !forumInsertQuoting(1498882)" rel="nofollow">Markierten Text zitieren</a></span> <span class="menuitem"><a href="#postform" rel="nofollow" class="nav">Antwort</a></span> <span class="menuitem postmenuitem-replyto"><a href="http://www.mikrocontroller.net/topic/158211?reply_to=1498882#postform" class="nav" rel="nofollow">Antwort mit Zitat</a></span>
+  </div>
+
+</div>
+
+
+
+
+    <div id="nav-middle"><div class="navbar">
+  <span class="left">
+    <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum">Forenliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum/gcc">Threadliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/topic/new?forum_id=2">Neuer Beitrag</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/search">Suchen</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/register">Anmelden</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/list">Benutzerliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/attachment/gallery">Bildergalerie</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/help">Hilfe</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/login">Login</a></span>
+  </span>
+  
+
+  <br class="clear">
+</div>
+</div>
+
+    <div class="topic-subscription noprint">
+      <a href="http://www.mikrocontroller.net/topic/subscribe/158211"><img src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/email_add.png" alt=""> E-Mail-Benachrichtigung einschalten</a>
+
+      |
+        <a href="http://www.mikrocontroller.net/user/enable_post_pagination"><img src="ATxmega16a4%20und%20Bootloader%20-%20Mikrocontroller.net_pliki/page_white_stack.png" alt=""> Seitenaufteilung einschalten</a>
+
+    </div>
+<!--
+    <div>1 Benutzer haben eine E-Mail-Benachrichtigung</div>
+
+    <div>
+      Diesen Thread bewerten: <img src="/images/icons/add.png" /> <img src="/images/icons/delete.png" />
+    </div>
+-->
+        <a name="postform"></a>
+
+
+<div class="noprint">
+<div class="postform box" style="float:left;">
+  
+  <h3>Antwort schreiben</h3>
+  
+  <div class="postform-info">
+    Die Angabe einer E-Mail-Adresse ist freiwillig. Wenn Sie automatisch
+ per E-Mail über Antworten auf Ihren Beitrag informiert werden möchten, <a href="http://www.mikrocontroller.net/user/login">melden Sie sich bitte an</a>.
+  </div>
+  <!-- <hr /> -->
+ 
+<div class="postform-rules">
+<h3>Wichtige Regeln - erst lesen, dann posten!</h3>
+<ul>
+<li>Groß- und Kleinschreibung verwenden</li>
+<li>Längeren Sourcecode nicht im Text einfügen, sondern als Dateianhang</li>
+</ul>
+<h3>Formatierung <a href="http://www.mikrocontroller.net/articles/Formatierung_im_Forum" style="font-size: small; font-weight: normal;" target="_blank">(mehr Informationen...)</a></h3>
+<ul>
+<li>[c]C-Code[/c]</li>
+<li>[avrasm]AVR-Assembler-Code[/avrasm]</li>
+<li>[code]Code in anderen Sprachen, ASCII-Zeichnungen[/code]</li>
+<li>[math]Formel in LaTeX-Syntax[/math]</li>
+<li>[[Titel]] - Link zu <a href="http://www.mikrocontroller.net/articles/Spezial:Allpages" target="_blank">Artikel</a></li>
+</ul>
+
+</div>
+
+
+  <form accept-charset="UTF-8" action="/topic/158211#postform" enctype="multipart/form-data" id="postform" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="mHehugNSZl38TaV3I9lhd03C+gabpjJ67vCmV7zbkRs=" type="hidden"></div>
+
+    <input name="dummy" value="ie-workaround" type="hidden">
+    <input name="title" style="display: none" type="text">
+    <input id="post_id" name="post[id]" type="hidden">
+    <input id="post_parent_id" name="post[parent_id]" value="1498882" type="hidden">
+    <input id="post_topic_id" name="post[topic_id]" value="158211" type="hidden">
+
+    <table>
+
+
+                <tbody><tr class="two_columns">
+          <td class="prompt"><label for="form_post_guest_name"><b>Name</b>:</label></td>
+          <td class="value"><input class="two_columns" id="form_post_guest_name" maxlength="50" name="post[guest_name]" required="required" size="30" type="text"><br></td>
+        </tr>
+
+                <tr class="two_columns">
+          <td class="prompt"><label for="form_post_guest_email">E-Mail (wird nicht angezeigt):</label></td>
+          <td class="value"><input class="two_columns" id="form_post_guest_email" maxlength="50" name="post[guest_email]" size="30" type="email"><br></td>
+        </tr>
+
+    
+              <tr class="two_columns">
+          <td class="prompt"><label for="form_post_subject"><b>Betreff</b>:</label></td>
+          <td class="value"><input class="two_columns" id="form_post_subject" maxlength="100" name="post[subject]" required="required" size="50" value="Re: ATxmega16a4 und Bootloader" type="text"><br></td>
+        </tr>
+
+
+      <tr><td colspan="2">
+      <div id="similar_topics" class="box" style="display: none;">
+        Ähnliche Beiträge werden gesucht...
+        <div style="text-align: right;">
+        <a href="#" onclick="$('similar_topics').hide(); return false;">[ausblenden]</a>
+        </div>
+      </div>
+      </td></tr>
+
+              <tr class="two_columns">
+          <td class="prompt"><label for="form_post_new_attachment">Dateianhang:</label></td>
+          <td class="value"><input class="two_columns" id="form_post_new_attachment" name="post[new_attachment]" onclick="javascript:alert('Bitte beachten, sonst wird der Beitrag gelöscht: 1. JPG-Dateien NUR für Fotos und Scans verwenden, Schaltpläne und Zeichnungen nur als PNG oder GIF. 2. sinnvolle Bildgröße wählen.');" type="file"><br></td>
+        </tr>
+
+      <tr>
+        <td></td>
+        <td><input name="preview" value="Weitere Datei anhängen" type="submit"></td>
+      </tr>
+      
+      <tr>
+        <td></td><td>
+          Bitte das JPG-Format nur für Fotos und Scans verwenden!<br>
+          Zeichnungen und Screenshots im PNG- oder<br>GIF-Format hochladen.
+          Siehe <a href="http://www.mikrocontroller.net/articles/Bildformate" target="_new">Bildformate</a>.
+        </td>
+      </tr>
+
+
+      <tr><td colspan="2">
+          <div style="color: red; font-weight: bold;">Hinweis: der ursprüngliche Beitrag ist mehr als 6 Monate alt.<br>Bitte hier nur auf die ursprüngliche Frage antworten,<br> für neue Fragen einen <a href="http://www.mikrocontroller.net/topic/new?forum_id=2">neuen Beitrag</a> erstellen.</div>
+      </td></tr>
+
+              <tr><td class="prompt" colspan="2"><label for="form_post_text"><b>Text</b>:</label></td></tr>
+        <tr><td class="value" colspan="2"><textarea cols="75" id="form_post_text" name="post[text]" rows="24" wrap="soft"></textarea><br></td></tr>
+
+
+
+      
+
+
+
+
+      <tr><td colspan="2">
+         
+        <div style="font-weight: bold;">Mit dem Abschicken bestätigst du, die <a href="http://www.mikrocontroller.net/user/conditions">Nutzungsbedingungen</a> anzuerkennen.</div>
+      </td></tr>
+      <tr><td colspan="2">
+        <input name="preview" value="Vorschau" type="submit">
+
+          <input name="save" value="Absenden" type="submit">
+      </td></tr>
+
+
+    </tbody></table>
+</form>
+</div>
+
+<div style="float: left; margin-left: 30px;">
+<script type="text/javascript">document.write(decodeURIComponent('%3Cdiv%20class=%22ad%22%20id=%22div-gpt-ad-dkjxfpcl%22%3E%3C/div%3E'));googletag.cmd.push(function() {slot = googletag.defineSlot('/1009109/uc_postform_wsky', [160, 600], 'div-gpt-ad-dkjxfpcl');slot.addService(googletag.pubads());slot.set('adsense_channel_ids', '4674252417+3856911612+6234123075');
+slot.set('adsense_border_color', 'ffa500');
+slot.set('adsense_background_color', 'ffffff');
+slot.set('adsense_link_color', '0000ff');
+slot.set('adsense_url_color', '0000ff');
+slot.set('adsense_text_color', '333333');
+googletag.enableServices();googletag.display('div-gpt-ad-dkjxfpcl');
+});</script><div class="ad" id="div-gpt-ad-dkjxfpcl"><div style="border: 0pt none;" id="google_ads_iframe_/1009109/uc_postform_wsky_0__container__"><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_postform_wsky_0" id="google_ads_iframe_/1009109/uc_postform_wsky_0" frameborder="0" height="600" scrolling="no" width="160"></iframe></div><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_postform_wsky_0__hidden__" id="google_ads_iframe_/1009109/uc_postform_wsky_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+
+<br style="clear: both">
+</div>
+
+
+
+
+  </div>
+</div>
+
+  </div>
+  <div id="nav-bottom"><div class="navbar">
+  <span class="left">
+    <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum">Forenliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/forum/gcc">Threadliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/topic/new?forum_id=2">Neuer Beitrag</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/search">Suchen</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/register">Anmelden</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/list">Benutzerliste</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/attachment/gallery">Bildergalerie</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/help">Hilfe</a></span> <span class="menuitem "><a class="nav" href="http://www.mikrocontroller.net/user/login">Login</a></span>
+  </span>
+  
+
+  <br class="clear">
+</div>
+</div>
+    <!-- google_ad_section_end -->
+    <!-- contentDetection end --> 
+
+    <script type="text/javascript">document.write(decodeURIComponent('%3Cdiv%20class=%22ad%22%20id=%22div-gpt-ad-kurlqsyx%22%3E%3C/div%3E'));googletag.cmd.push(function() {slot = googletag.defineSlot('/1009109/uc_bottom_lb', [728, 90], 'div-gpt-ad-kurlqsyx');slot.addService(googletag.pubads());slot.set('adsense_channel_ids', '4674252417+4432670337+5150403961');
+slot.set('adsense_border_color', 'ffa500');
+slot.set('adsense_background_color', 'ffeebb');
+slot.set('adsense_link_color', '000000');
+slot.set('adsense_url_color', '000000');
+slot.set('adsense_text_color', '333333');
+googletag.enableServices();googletag.display('div-gpt-ad-kurlqsyx');
+});</script><div class="ad" id="div-gpt-ad-kurlqsyx"><div style="border: 0pt none;" id="google_ads_iframe_/1009109/uc_bottom_lb_0__container__"><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_bottom_lb_0" id="google_ads_iframe_/1009109/uc_bottom_lb_0" frameborder="0" height="90" scrolling="no" width="728"></iframe></div><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_bottom_lb_0__hidden__" id="google_ads_iframe_/1009109/uc_bottom_lb_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+
+</div>
+
+  </td>
+<style type="text/css">
+@media screen and (min-width: 1250px) {
+  #sidebar-right {
+    display: table-cell;
+  }
+	#outer-container {
+		max-width: 1250px;
+	}
+}
+</style>
+
+<td id="sidebar-right" class="sidebar">
+<div class="nav-container">
+ <ul class="nav-first">
+<li class=""><a href="http://www.mikrocontroller.net/forum">Forenliste</a></li> <li class=""><a href="http://www.mikrocontroller.net/forum/gcc">Threadliste</a></li> <li class=""><a href="http://www.mikrocontroller.net/topic/new?forum_id=2">Neuer Beitrag</a></li> <li class=""><a href="http://www.mikrocontroller.net/search">Suchen</a></li> <li class=""><a href="http://www.mikrocontroller.net/user/list">Benutzerliste</a></li> <li class=""><a href="http://www.mikrocontroller.net/attachment/gallery">Bildergalerie</a></li> <li class=""><a href="http://www.mikrocontroller.net/user/help">Hilfe</a></li> <li class=""><a href="http://www.mikrocontroller.net/user/register">Anmelden</a></li>
+  <li>
+  <ul>
+  <li class=""><a href="http://www.mikrocontroller.net/user/login">Login</a></li>
+  </ul>
+  </li>
+</ul>
+</div>
+
+<hr>
+<div style="margin: auto; padding: 0; width: 120px;">
+
+<script type="text/javascript">
+if (window.innerWidth >= 1200) {
+  document.write(decodeURIComponent('%3Cdiv%20class=%22ad%22%20id=%22div-gpt-ad-apykvdso%22%3E%3C/div%3E'));googletag.cmd.push(function() {slot = googletag.defineSlot('/1009109/uc_sidebar_right_top_sky', [120, 600], 'div-gpt-ad-apykvdso');slot.addService(googletag.pubads());slot.set('adsense_channel_ids', '4674252417+4944964942,7383343829+6234123075');
+slot.set('adsense_border_color', 'ffa500');
+slot.set('adsense_background_color', 'ffffff');
+slot.set('adsense_link_color', '0000ff');
+slot.set('adsense_url_color', '0000ff');
+slot.set('adsense_text_color', '333333');
+googletag.enableServices();googletag.display('div-gpt-ad-apykvdso');
+});
+}
+</script><div class="ad" id="div-gpt-ad-apykvdso"><div style="border: 0pt none;" id="google_ads_iframe_/1009109/uc_sidebar_right_top_sky_0__container__"><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_sidebar_right_top_sky_0" id="google_ads_iframe_/1009109/uc_sidebar_right_top_sky_0" frameborder="0" height="600" scrolling="no" width="120"></iframe></div><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1009109/uc_sidebar_right_top_sky_0__hidden__" id="google_ads_iframe_/1009109/uc_sidebar_right_top_sky_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+</td>
+  </tr>
+  </tbody></table>
+
+    <div id="bottom">
+  <div id="impress">
+    <a href="mailto:webmaster@mikrocontroller.net?subject=Mikrocontroller.net">webmaster@mikrocontroller.net</a> – <a href="http://www.mikrocontroller.net/contact">Impressum</a> – <a href="http://www.mikrocontroller.net/user/conditions">Nutzungsbedingungen</a> – <a href="mailto:webmaster@mikrocontroller.net?subject=Anfrage%20zu%20Werbung%20auf%20Mikrocontroller.net">Werbung auf Mikrocontroller.net</a>
+  </div>
+  <div id="powered">
+<!--    powered by Ruby on Rails -->
+  </div>
+ <a href="http://www.mikrocontroller.net/util/rb"><!-- nothing --></a>
+ <!-- <a href="http://www.mikrocontroller.net/hp/curlews.php">nothing to see here</a> -->
+</div>
+
+</div> <!-- outer-container -->
+
+
+<div style="padding: 0px; border: medium none; margin: 0px; position: absolute; left: 0px; top: 0px; width: 100%; z-index: 1001; direction: ltr;" class="highslide-container"><a style="position: absolute; top: -9999px; opacity: 0.75; z-index: 1;" href="javascript:;" title="Klick zum Abbrechen" class="highslide-loading">Lade...</a><div style="display: none;"></div><table style="padding: 0px; border: medium none; margin: 0px; visibility: hidden; position: absolute; border-collapse: collapse; width: 0px;" cellspacing="0"><tbody style="padding: 0px; border: medium none; margin: 0px;"><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll 0px 0px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll 0px -40px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll -20px 0px transparent; height: 20px; width: 20px;"></td></tr><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll 0px -80px transparent; height: 20px; width: 20px;"></td><td class="drop-shadow highslide-outline" style="padding: 0px; border: medium none; margin: 0px; position: relative;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll -20px -80px transparent; height: 20px; width: 20px;"></td></tr><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll 0px -20px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll 0px -60px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;http://www.mikrocontroller.net/highslide/graphics/outlines/drop-shadow.png&quot;) repeat scroll -20px -20px transparent; height: 20px; width: 20px;"></td></tr></tbody></table></div><iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_1654111798491"></iframe></body></html>
