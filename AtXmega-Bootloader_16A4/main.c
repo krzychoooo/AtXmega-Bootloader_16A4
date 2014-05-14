@@ -157,9 +157,9 @@ int main(void)
                 }
                 
                 // Writing random values to the page buffer
-                EEPROM_LoadPage(&val);
+                //EEPROM_LoadPage(&val);
                 // Erasing all pages in the EEPROM
-                EEPROM_EraseAll();
+                //EEPROM_EraseAll();
                 
                 putchard0('\r'); // Send OK back.
             }
