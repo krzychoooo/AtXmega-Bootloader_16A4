@@ -39,6 +39,7 @@ C_SRCS +=  \
 ../eeprom_driver.c \
 ../main.c \
 ../serial.c \
+../timer0x.c \
 ../usartd0.c \
 ../xmega_clk.c
 
@@ -57,6 +58,7 @@ eeprom_driver_workaround.o \
 main.o \
 serial.o \
 sp_driver.o \
+timer0x.o \
 usartd0.o \
 xmega_clk.o
 
@@ -66,6 +68,7 @@ eeprom_driver_workaround.o \
 main.o \
 serial.o \
 sp_driver.o \
+timer0x.o \
 usartd0.o \
 xmega_clk.o
 
@@ -75,6 +78,7 @@ eeprom_driver_workaround.d \
 main.d \
 serial.d \
 sp_driver.d \
+timer0x.d \
 usartd0.d \
 xmega_clk.d
 
@@ -84,6 +88,7 @@ eeprom_driver_workaround.d \
 main.d \
 serial.d \
 sp_driver.d \
+timer0x.d \
 usartd0.d \
 xmega_clk.d
 
@@ -98,6 +103,8 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

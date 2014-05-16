@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 #include "usartd0.h"
 #include "xmega_baud.h"
+#include "timer0x.h"
 
 volatile uint8_t* timerd0;
 
@@ -122,14 +123,14 @@ void registerTimerd0(volatile uint8_t* t){
 }
 
 
-char getchard0Time(uint8_t time)
+char getchard0Time(uint16_t time)
 {
 int data;
 
-*timerd0 = time;
-while ((rx_counter_usartd0 == 0) && (*timerd0));
-if(*timerd0 == 0){
-	return 0x0000;		// brak znaków
+timer0T = time;
+while ((rx_counter_usartd0 == 0) && (timer0T));
+if(timer0T == 0){
+	return 'E';		// brak znaków
 }
 
 while (rx_counter_usartd0==0);

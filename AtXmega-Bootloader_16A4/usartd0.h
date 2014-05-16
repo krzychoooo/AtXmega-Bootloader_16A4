@@ -21,7 +21,7 @@ void usartd0_init();
 
 int getchard0();
 void registerTimerd0(volatile uint8_t* t);
-char getchard0Time(uint8_t time);
+char getchard0Time(uint16_t time);
 
 // USARTD0 Transmitter buffer
 #define TX_BUFFER_SIZE_USARTD0 8

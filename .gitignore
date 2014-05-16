@@ -1,0 +1,9 @@
+*.eep
+*.elf
+AtXmega-Bootloader_16a4/Release
+AtXmega-Bootloader_16a4/Debug/
+AtXmega-Bootloader_16a4/doxySettings.xml
+AtXmega-Bootloader_16a4/doxyfile
+AtXmega-Bootloader_16a4/doxygen/
+/test
+.settings/

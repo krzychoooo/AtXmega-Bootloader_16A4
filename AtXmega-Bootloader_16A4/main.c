@@ -33,6 +33,7 @@
 
 #include "usartd0.h"
 #include "xmega_clk.h"
+#include "timer0x.h"
 
 /*If the code space is critical, user can uncomment the following lines*/
 //#define REMOVE_AVRPROG_SUPPORT
@@ -72,14 +73,10 @@ int main(void)
     /* Initialization */    
     void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
 
-#ifdef HAVE_LED
-	PORTA.DIR |= 1<<5;
-	PORTA.OUT = 0;
-#endif  
-
     EEPROM_FlushBuffer();
 	EEPROM_DisableMapping();
 
+	PORTA.DIRSET = 1<<5;
     
 	// Interrupt system initialization
 	// Optimize for speed
@@ -102,7 +99,7 @@ int main(void)
 
 	system_clocks_init();
 	
-	
+	tcc0_init();
     //initbootuart(); // Initialize UART.
 	usartd0_init();
                 
@@ -114,17 +111,19 @@ int main(void)
     {
 
 #ifdef HAVE_LED
-		PORTA.OUTSET = 1<<5;
+		//PORTA.OUTSET = 1<<5;
 #endif
 
 	putchard0('A');
 	putchard0('B');
 	putchard0('C');
 	putchard0('D');
+	
+	
 	    /* Main loop */
         for(;;)
         {
-            val = getchard0(); // Wait for command character.
+            val = getchard0Time(800); // Wait for command character.
 
 #ifdef HAVE_LED
 			PORTA.OUTTGL = 1<<5;
@@ -381,6 +380,9 @@ int main(void)
     }
     else
     {
+		#ifdef HAVE_LED
+		PORTA.OUTCLR = 1<<5;
+		#endif
         SP_WaitForSPM();
         SP_LockSPM();
         EIND = 0x00;
